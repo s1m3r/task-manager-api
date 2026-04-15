@@ -1,4 +1,5 @@
 package task_manager_api.demo.service;
+import org.springframework.web.bind.annotation.RequestBody;
 import task_manager_api.demo.exception.TaskNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +22,15 @@ public class TaskService {
     public TaskService() {
     }
 
-    public Task create(String name, int priority) {
+
+    public Task create(String name, Integer priority) {
         int id = this.nextId.getAndIncrement();
         Task task = new Task(name, priority, id);
         this.tasks.put(id, task);
         return task;
     }
 
-    public Future<Task> createAsync(String name, int priority) {
+    public Future<Task> createAsync(String name, Integer priority) {
         return this.executor.submit(() -> {
             return this.create(name, priority);
         });
@@ -43,14 +45,14 @@ public class TaskService {
         return new ArrayList(this.tasks.values());
     }
 
-    public void deleteById(int id) throws TaskNotFoundException {
+    public void deleteById(Integer id) throws TaskNotFoundException {
         Task removed = (Task)this.tasks.remove(id);
         if (removed == null) {
             throw new TaskNotFoundException(id);
         }
     }
 
-    public Task getById(int id) throws TaskNotFoundException {
+    public Task getById(Integer id) throws TaskNotFoundException {
         Task task = (Task)this.tasks.get(id);
         if (task == null) {
             throw new TaskNotFoundException(id);
@@ -59,7 +61,7 @@ public class TaskService {
         }
     }
 
-    public void update(int id, String name, int priority) throws TaskNotFoundException {
+    public void update(Integer id, String name, Integer priority) throws TaskNotFoundException {
         Task task = this.getById(id);
         task.setName(name);
         task.setPriority(priority);

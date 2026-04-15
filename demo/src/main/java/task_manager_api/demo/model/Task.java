@@ -1,13 +1,19 @@
 package task_manager_api.demo.model;
 
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Task {
     private String name;
-    private int priority;
-    private int id;
+    private Integer priority;
+    private Integer id;
     private List<String> tags = new ArrayList<>();
+
+    public Task() {
+    }
 
     public List<String> getTags() {
         return tags;
@@ -21,15 +27,15 @@ public class Task {
         this.name = name;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(Integer priority) {
         this.priority = priority;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Task(String name, int priority, int id) {
+    public Task(String name, Integer priority, Integer id) {
         this.name = name;
         this.priority = priority;
         this.id = id;
@@ -39,11 +45,11 @@ public class Task {
         return name;
     }
 
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 }
