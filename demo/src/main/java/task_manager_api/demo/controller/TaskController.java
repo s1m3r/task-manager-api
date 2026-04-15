@@ -1,5 +1,7 @@
 package task_manager_api.demo.controller;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import task_manager_api.demo.exception.ErrorResponse;
 import task_manager_api.demo.exception.TaskNotFoundException;
 import task_manager_api.demo.model.Task;
 import task_manager_api.demo.service.TaskService;
@@ -19,6 +21,7 @@ public class TaskController {
 
     // CREATE
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Task create(@RequestBody Task task) {
         return taskService.create(task.getName(), task.getPriority());
     }
@@ -35,6 +38,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Integer id) throws TaskNotFoundException{
         taskService.deleteById(id);
     }
@@ -42,5 +46,10 @@ public class TaskController {
     @PutMapping("/{id}")
     public void update(@PathVariable Integer id, @RequestBody Task task) throws TaskNotFoundException{
         taskService.update(id,task.getName(), task.getPriority());
+    }
+    @ExceptionHandler(TaskNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleNotFound(TaskNotFoundException ex) {
+        return new ErrorResponse(ex.getMessage());
     }
 }
