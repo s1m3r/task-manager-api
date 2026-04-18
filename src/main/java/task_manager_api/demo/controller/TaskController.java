@@ -1,6 +1,7 @@
 package task_manager_api.demo.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import task_manager_api.demo.dto.TaskDto;
 import task_manager_api.demo.exception.ErrorResponse;
 import task_manager_api.demo.exception.TaskNotFoundException;
 import task_manager_api.demo.model.Task;
@@ -22,8 +23,8 @@ public class TaskController {
     // CREATE
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Task create(@RequestBody Task task) {
-        return taskService.create(task.getName(), task.getPriority());
+    public Task create(@RequestBody TaskDto dto) {
+        return taskService.create(dto.getName(), dto.getPriority());
     }
 
     // GET ALL
@@ -44,8 +45,8 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Integer id, @RequestBody Task task) throws TaskNotFoundException{
-        taskService.update(id,task.getName(), task.getPriority());
+    public void update(@PathVariable Integer id, @RequestBody TaskDto dto) throws TaskNotFoundException{
+        taskService.update(id,dto.getName(), dto.getPriority());
     }
     @ExceptionHandler(TaskNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
