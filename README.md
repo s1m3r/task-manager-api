@@ -23,6 +23,7 @@ It supports full CRUD operations and uses an in-memory H2 database for data stor
 - Delete task
 - Support for task tags
 - Async task creation (ExecutorService)
+- DTO layer for request handling
 
 ---
 ## 🏗 Project Structure
@@ -36,6 +37,8 @@ src/main/java/task_manager_api/demo
 ├── repository # Data access layer
 
 ├── model # Entities
+
+├── DTO # Request handling
 
 ├── exception # Custom exceptions & handlers
 
